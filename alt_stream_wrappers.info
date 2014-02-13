@@ -1,0 +1,3 @@
+name = Alternative Stream Wrappers
+description = Provides one or more configurable alternative stream wrappers for file storage.
+core = 7.x

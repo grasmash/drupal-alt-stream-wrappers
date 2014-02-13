@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Provides one or more configurable alternative stream wrappers for
+ * file storage.
+ * 
+ * @see https://drupal.org/node/560424
+ * @see https://api.drupal.org/api/drupal/includes!stream_wrappers.inc/7
+ */
+
+/**
+ * Implements hook_stream_wrappers().
+ */
+function alt_stream_wrappers_stream_wrappers() {
+  
+  $default = array(
+    'alt-temp' => array(
+      'name' => t('Alternative temporary files'),
+      'class' => 'DrupalAltStreamWrapper',
+      'description' => t('Alternative temporary local files.'),
+      'type' => STREAM_WRAPPERS_LOCAL_HIDDEN,
+    ),
+  );
+
+  $all_wrappers = variable_get('alt_stream_wrappers_wrappers', $default);
+  
+  $configured_wrappers = array();
+  foreach ($all_wrappers as $scheme => $wrapper) {
+    // Only register the stream wrapper if a file path has been set.
+    if (variable_get('alt_stream_wrappers_' . $scheme . '_path', FALSE)) {
+      $configured_wrappers[$scheme] = $wrapper;
+    }
+  }
+  return $configured_wrappers;
+}
+
+/**
+ * Drupal alternative stream wrapper class.
+ *
+ * Provides support for alternative file storage locations.
+ * 
+ * This is a generic class which should work for all of the one or more
+ * Alternative Stream Wrappers provided by this module.
+ *
+ * Extends DrupalLocalStreamWrapper.
+ */
+class DrupalAltStreamWrapper extends DrupalLocalStreamWrapper {
+  /**
+   * Implements abstract public function getDirectoryPath()
+   */
+  public function getDirectoryPath() {
+    $scheme = file_uri_scheme($this->uri);
+    // todo: is temp a sensible default here or should it just be FALSE?
+    return variable_get('alt_stream_wrappers_' . $scheme . '_path', file_directory_temp());
+  }
+
+  /**
+   * Overrides getExternalUrl().
+   */
+  public function getExternalUrl() {
+    // todo: is it practical to provide this?
+    //  we'd need to know if the files should be accessible at all,
+    //  and if so if they need to be provided by a menu item (which we'd
+    //  have to provide).
+    // Not sure how easy that would be to do from within this generic class,
+    //  although I suppose we could lookup the details of the stream wrapper
+  }
+}
