@@ -9,6 +9,13 @@
  * @see https://api.drupal.org/api/drupal/includes!stream_wrappers.inc/7
  */
 
+// These constants are for convenience, but probably will not be defined
+//  in time to be used in settings.php
+if (!defined('ALT_STREAM_WRAPPERS_HIDDEN') && !defined('ALT_STREAM_WRAPPERS_NORMAL')) {
+  define('ALT_STREAM_WRAPPERS_HIDDEN',    13);
+  define('ALT_STREAM_WRAPPERS_NORMAL',    29);
+}
+
 /**
  * Implements hook_stream_wrappers().
  */
@@ -59,11 +66,23 @@ class DrupalAltStreamWrapper extends DrupalLocalStreamWrapper {
    * Overrides getExternalUrl().
    */
   public function getExternalUrl() {
-    // todo: is it practical to provide this?
-    //  we'd need to know if the files should be accessible at all,
-    //  and if so if they need to be provided by a menu item (which we'd
-    //  have to provide).
-    // Not sure how easy that would be to do from within this generic class,
-    //  although I suppose we could lookup the details of the stream wrapper
+    $scheme = file_uri_scheme($this->uri);
+    // What kind of wrapper is this?
+    $wrappers = file_get_stream_wrappers();
+    $wrapper = isset($wrappers[$scheme]) ? $wrappers[$scheme] : FALSE;
+    if ($wrapper) {
+      if ($wrapper['type'] & STREAM_WRAPPERS_LOCAL_NORMAL) {
+        // Same as public:// stream wrapper
+        $path = str_replace('\\', '/', $this->getTarget());
+        return $GLOBALS['base_url'] . '/' . self::getDirectoryPath() . '/' . drupal_encode_path($path);
+      }
+      else {
+        // Go through the system module like temporary:// and private://
+        //  In order for this file to be downloadable, a module will have to
+        //  implement hook_file_download() and return headers for this scheme.
+        $path = str_replace('\\', '/', $this->getTarget());
+        return url('system/' . $scheme . '/' . $path, array('absolute' => TRUE));
+      }
+    }
   }
 }

@@ -16,7 +16,9 @@ This simple module allows Drupal to keep using the built-in stream wrappers
 (e.g. public:// and temporary://) but also have the use of one or more 
 Alternative Stream Wrappers for cases like the shared temporary directory.
 
-There may be other uses too - the module aims to be flexible.
+There may be other uses too - the module aims to be flexible. For example,
+if for any reason you want to have more than one public files directory, 
+this module should make that possible.
 
 
 USING ALTERNATIVE STREAM WRAPPERS
@@ -33,20 +35,36 @@ drush vset alt_stream_wrappers_alt-temp_path '/mnt/nfs/tmp'
 If you need more, or different wrappers, you can override the default by
 setting a variable, most likely in settings.php
 
+However, there is a caveat; the STREAM_WRAPPER constants have probably not
+been defined in time to be used in settings.php so you'll probably need to
+use something else to define to the 'type' of each wrapper. One option is to
+include the stream_wrappers.inc file like so:
+
+if (!defined('STREAM_WRAPPERS_ALL')) {
+  include('./includes/stream_wrappers.inc');
+}
+
+..however this module only really provides for two types of wrappers;
+public or hidden, so you may want to define these constants (or just use
+their integer values) when defining your own wrappers in settings.php
+
 e.g.
+
+define('ALT_STREAM_WRAPPERS_HIDDEN',    13);
+define('ALT_STREAM_WRAPPERS_NORMAL',    29);
 
 $conf['alt_stream_wrappers_wrappers'] = array(
     'alt-temp' => array(
       'name' => t('Alternative temporary files'),
       'class' => 'DrupalAltStreamWrapper',
       'description' => t('Alternative temporary local files.'),
-      'type' => STREAM_WRAPPERS_LOCAL_HIDDEN,
+      'type' => ALT_STREAM_WRAPPERS_HIDDEN,
     ),
     'foobar' => array(
-      'name' => t('Yet more temporary files'),
+      'name' => t('Alt public'),
       'class' => 'DrupalAltStreamWrapper',
-      'description' => t('Yet more temporary local files.'),
-      'type' => STREAM_WRAPPERS_LOCAL_HIDDEN,
+      'description' => t('Another public file directory.'),
+      'type' => ALT_STREAM_WRAPPERS_NORMAL,
     ),
   );
   
