@@ -75,7 +75,3 @@ In the example above, you'd then need to set a value for the path in
 the appropriately named variable e.g.:
 
 $conf['alt_stream_wrappers_foobar_path'] = '/mnt/foo';
-
-Initially this is probably only useful for temporary files, as there's no
-functioning implementation of the getExternalUrl method of the class. If
-this would be a useful feature, suggestions or patches welcome :)
