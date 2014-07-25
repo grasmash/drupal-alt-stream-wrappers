@@ -1,0 +1,17 @@
+<?php
+/**
+ * Workaround for https://www.drupal.org/node/2198399
+ * This sub-module will be retired if/when the issue is fixed in VDE.
+ */
+
+/**
+ * Implements hook_file_presave().
+ */
+function vde_temp_files_fix_file_presave($file) {
+  $identifier = 'views_data_export';
+  if(strpos($file->filename, $identifier) === 0) {
+    // D7 has no FILE_STATUS_TEMPORARY defined - https://www.drupal.org/node/1659116
+    $file->status = 0;
+  }
+}
+
