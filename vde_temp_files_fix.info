@@ -1,4 +1,0 @@
-name = Views Data Export temporary files fix
-description = Ensures views_data_export temporary files are really temporary; see dgo.to/2198399
-core = 7.x
-
