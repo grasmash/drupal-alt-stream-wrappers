@@ -53,6 +53,20 @@ function alt_stream_wrappers_stream_wrappers() {
  * Extends DrupalLocalStreamWrapper.
  */
 class DrupalAltStreamWrapper extends DrupalLocalStreamWrapper {
+
+  /**
+   * Overrides getLocalPath().
+   */
+  protected function getLocalPath($uri = NULL) {
+    if (empty($this->uri) && !empty($uri)) {
+      // sometimes necessary for the file_uri_scheme and variable_get
+      //  in DrupalAltStreamWrapper's getDirectoryPath method to work
+      //  when called from parent::getLocalPath
+      $this->uri = $uri;
+    }
+    return parent::getLocalPath($uri);
+  }
+
   /**
    * Implements abstract public function getDirectoryPath()
    */
