@@ -1,5 +1,5 @@
 WHY MIGHT I NEED ALTERNATIVE STREAM WRAPPERS?
----------------------------------------------
+=============================================
 
 Some hosting configurations with multiple webservers use a mix of 
 filesystems local to each webserver and storage which is shared between the 
@@ -18,11 +18,24 @@ Alternative Stream Wrappers for cases like the shared temporary directory.
 
 There may be other uses too - the module aims to be flexible. For example,
 if for any reason you want to have more than one public files directory, 
-this module should make that possible.
+this module should make that possible (in D7).
 
 
 USING ALTERNATIVE STREAM WRAPPERS
----------------------------------
+=================================
+
+Drupal 8
+--------
+
+Set a path for the alt-temp:// stream wrapper in settings.php e.g.
+
+$settings['alt_stream_wrappers_alt-temp_path'] = '/mnt/nfs/tmp';
+
+The D8 version doesn't (currently) provide any other functionality.
+
+
+Drupal 7
+--------
 
 The alt_stream_wrappers_stream_wrappers() function defines a default
 alt-temp:// stream wrapper, and this can be used out of the box; all you
