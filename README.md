@@ -1,10 +1,9 @@
 This module creates a second, alternative stream wrapper for temporary files.
 
-After installing this module, you will have both temporary:// and alt-temporary:// streams
+After installing this module, you will have both `temporary://` and `alt-temporary://` streams
 available.
 
-WHY MIGHT I NEED ALTERNATIVE STREAM WRAPPERS?
-=============================================
+# Why might I need Alternative Stream Wrappers?
 
 Some hosting configurations with multiple webservers use a mix of
 filesystems local to each webserver and storage which is shared between the 
@@ -15,16 +14,16 @@ files wherever possible, but shared storage where the webs might need to
 share access to the same set of temporary files. 
 
 The views_data_export module is a good example of where shared temp storage
-is useful. See: https://drupal.org/node/1782038
+is useful. See: <https://drupal.org/node/1782038>
 
 This simple module allows Drupal to keep using the built-in stream wrappers 
-(temporary://) but also have the use of an alternative, shared temporary directory.
+ but also have the use of an alternative, shared temporary directory.
 
 
-USING ALTERNATIVE STREAM WRAPPERS
+Using Alternative Stream Wrappers
 =================================
 
-Set a path for the alt-temporary:// stream wrapper in settings.php.
+Set a path for the `alt-temporary://` stream wrapper in settings.php.
 
 There are a few ways to do this:
 
