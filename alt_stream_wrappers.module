@@ -4,3 +4,33 @@
  * @file
  * Provides an alternative temporary stream wrapper.
  */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Form id is system_file_system_settings.
+ */
+function alt_stream_wrappers_form_system_file_system_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+    $form['alt_file_temporary_path'] = [
+      '#type' => 'textfield',
+      '#title' => t('Alternative temporary directory'),
+      '#default_value' => \Drupal::config('alt_stream_wrappers.settings')->get('path.temporary'),
+      '#maxlength' => 255,
+      '#description' => t('A alternative local file system path where temporary files will be stored. This directory should not be accessible over the web.'),
+      '#after_build' => ['system_check_directory'],
+    ];
+
+    $form['#submit'][] = 'alt_stream_wrappers_form_system_file_system_settings_submit';
+}
+
+/**
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function alt_stream_wrappers_form_system_file_system_settings_submit($form, FormStateInterface $form_state) {
+    $config = \Drupal::configFactory()->getEditable('alt_stream_wrappers.settings');
+    $config->set('path.temporary', $form_state->getValue('alt_file_temporary_path'));
+    $config->save();
+}

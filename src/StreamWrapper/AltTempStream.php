@@ -9,6 +9,8 @@ use Drupal\Core\Site\Settings;
 
 /**
  * Defines an alternative Drupal temporary (alt-temp://) stream wrapper class.
+ *
+ * @see \Drupal\Core\StreamWrapper\TemporaryStream
  */
 class AltTempStream extends LocalStream {
 
@@ -37,7 +39,11 @@ class AltTempStream extends LocalStream {
    * {@inheritdoc}
    */
   public function getDirectoryPath() {
-    return Settings::get('alt_stream_wrappers_alt-temp_path', file_directory_temp());
+      $temporary_directory = \Drupal::config('alt_stream_wrappers.settings')->get('path.temporary');
+      if (empty($temporary_directory)) {
+          $temporary_directory = file_directory_temp();
+      }
+      return $temporary_directory;
   }
 
   /**
