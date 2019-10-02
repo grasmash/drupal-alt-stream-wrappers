@@ -1,0 +1,11 @@
+alt_stream_wrappers.settings:
+  type: config_object
+  label: Settings
+  mapping:
+    path:
+      type: mapping
+      label: 'Path settings'
+      mapping:
+        temporary:
+          type: string
+          label: 'Alternative temporary directory'

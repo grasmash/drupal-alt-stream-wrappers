@@ -1,6 +1,6 @@
 This module creates a second, alternative stream wrapper for temporary files.
 
-After installing this module, you will have both `temporary://` and `alt-temporary://` streams
+After installing this module, you will have both `temporary://` and `alttemporary://` streams
 available.
 
 # Why might I need Alternative Stream Wrappers?
@@ -23,7 +23,7 @@ This simple module allows Drupal to keep using the built-in stream wrappers
 Using Alternative Stream Wrappers
 =================================
 
-Set a path for the `alt-temporary://` stream wrapper.
+Set a path for the `alttemporary://` stream wrapper.
 
 There are a few ways to do this:
 
@@ -31,4 +31,4 @@ There are a few ways to do this:
 2. Via `drush config:set alt_stream_wrappers.settings path.temporary '/mnt/nfs/tmp' -y`
 3. Via settings.php `$config['alt_stream_wrappers.settings']['path']['temporary'] = '/tmp';`
 
-To then take advantage of this new stream wrapper, you'd need to use `alt-temporary://` as a filepath. E.g., configure DropzoneJS to use `alt-temporary://` for temporary storage via `drush config:set dropzonejs.settings tmp_upload_scheme alt-temporary`.
+To then take advantage of this new stream wrapper, you'd need to use `alttemporary://` as a filepath. E.g., configure DropzoneJS to use `alt_emporary://` for temporary storage via `drush config:set dropzonejs.settings tmp_upload_scheme alttemporary`.

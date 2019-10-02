@@ -2,6 +2,6 @@ alt_stream_wrappers.temporary:
   path: '/alt_stream_wrappers/temporary'
   defaults:
     _controller: '\Drupal\system\FileDownloadController::download'
-    scheme: alt-temporary
+    scheme: alttemporary
   requirements:
     _access: 'TRUE'

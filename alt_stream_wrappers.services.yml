@@ -1,5 +1,5 @@
 services:
-  alt_stream_wrappers.stream_wrapper:
+  stream_wrapper.alttemporary:
     class: Drupal\alt_stream_wrappers\StreamWrapper\AltTempStream
     tags:
-      - { name: stream_wrapper, scheme: alt-temporary }
+      - { name: stream_wrapper, scheme: alttemporary }

@@ -7,7 +7,7 @@ use Drupal\Core\StreamWrapper\LocalStream;
 use Drupal\Core\Url;
 
 /**
- * Defines an alternative Drupal temporary (alt-temp://) stream wrapper class.
+ * Defines an alternative Drupal temporary (alttemporary://) stream wrapper class.
  *
  * @see \Drupal\Core\StreamWrapper\TemporaryStream
  */
