@@ -23,7 +23,7 @@ This simple module allows Drupal to keep using the built-in stream wrappers
 Using Alternative Stream Wrappers
 =================================
 
-Set a path for the `alt-temporary://` stream wrapper in settings.php.
+Set a path for the `alt-temporary://` stream wrapper.
 
 There are a few ways to do this:
 
