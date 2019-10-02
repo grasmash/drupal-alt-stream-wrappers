@@ -5,7 +5,6 @@ namespace Drupal\alt_stream_wrappers\StreamWrapper;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Core\StreamWrapper\LocalStream;
 use Drupal\Core\Url;
-use Drupal\Core\Site\Settings;
 
 /**
  * Defines an alternative Drupal temporary (alt-temp://) stream wrapper class.

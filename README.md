@@ -27,6 +27,8 @@ Set a path for the `alt-temporary://` stream wrapper in settings.php.
 
 There are a few ways to do this:
 
-1. Via the UI at ...
+1. Via the UI at /admin/config/media/file-system.
 2. Via `drush config:set alt_stream_wrappers.settings path.temporary '/mnt/nfs/tmp' -y`
 3. Via settings.php `$config['alt_stream_wrappers.settings']['path']['temporary'] = '/tmp';`
+
+To then take advantage of this new stream wrapper, you'd need to use `alt-temporary://` as a filepath. E.g., configure DropzoneJS to use `alt-temporary://` for temporary storage via `drush config:set dropzonejs.settings tmp_upload_scheme alt-temporary`.
