@@ -30,4 +30,4 @@ There are a few ways to do this:
 * Via `drush config:set alt_stream_wrappers.settings path.temporary '/mnt/nfs/tmp' -y`
 * Via settings.php `$config['alt_stream_wrappers.settings']['path']['temporary'] = '/tmp';`
 
-2. Take advantage of this new stream wrapper, you'd need to use `alttemporary://` as a filepath. E.g., configure DropzoneJS to use `alttemporary://` for temporary storage via `drush config:set dropzonejs.settings tmp_upload_scheme alttemporary`.
+2. Take advantage of this new stream wrapper by using the `alttemporary://` stream. E.g., configure DropzoneJS to use `alttemporary://` for temporary storage via `drush config:set dropzonejs.settings tmp_upload_scheme alttemporary`.
